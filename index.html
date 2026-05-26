@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MUFC // Cyber Fan Hub</title>
+    <style>
+        /* ==========================================================================
+           ADVANCED CYBERPUNK "RED DEVILS" ENGINE
+           ========================================================================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: #050508;
+            color: #f5f5f7;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background-image: 
+                linear-gradient(rgba(218, 41, 28, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(218, 41, 28, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            background-position: center;
+            z-index: -1;
+            pointer-events: none;
+            animation: gridScroll 20s linear infinite;
+        }
+
+        @keyframes gridScroll {
+            0% { background-position: 0 0; }
+            100% { background-position: 0 40px; }
+        }
+
+        /* Navigation - Floating Glass Capsule */
+        nav {
+            background: rgba(8, 8, 12, 0.7);
+            backdrop-filter: blur(20px) saturate(160%);
+            -webkit-backdrop-filter: blur(20px) saturate(160%);
+            border-bottom: 1px solid rgba(218, 41, 28, 0.15);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 25px;
+        }
+
+        .logo {
+            color: #fff;
+            font-weight: 900;
+            font-size: 20px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .logo span {
+            color: #da291c;
+            text-shadow: 0 0 15px rgba(218, 41, 28, 0.8);
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .nav-links a {
+            display: inline-block;
+            color: #f5f5f7;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            padding: 10px 24px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(218, 41, 28, 0.25);
+            border-radius: 30px;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        .nav-links a:hover {
+            color: #fff;
+            border-color: #ff3b30;
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px rgba(218, 41, 28, 0.6);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: radial-gradient(circle at center, rgba(10, 10, 12, 0.1) 0%, #050508 90%), 
+                        url('https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=1500&q=80') no-repeat center center/cover;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .hero-content h1 {
+            font-size: 5.5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: -2px;
+            background: linear-gradient(180deg, #ffffff 30%, #da291c 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: neonPulse 4s infinite alternate ease-in-out;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            color: #8e8e93;
+            margin-bottom: 40px;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #da291c 0%, #7a0000 100%);
+            color: #fff;
+            padding: 16px 40px;
+            text-decoration: none;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.85rem;
+            border-radius: 4px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 25px rgba(218, 41, 28, 0.3);
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        .btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 35px rgba(218, 41, 28, 0.6);
+        }
+
+        section {
+            padding: 80px 25px;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .section-title span {
+            color: #da291c;
+            text-shadow: 0 0 20px rgba(218, 41, 28, 0.3);
+        }
+
+        /* Squad Grid */
+        .squad-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+            gap: 35px;
+            margin-bottom: 40px;
+        }
+
+        .player-card {
+            background: #0c0c10;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: 16px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .player-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 16px;
+            padding: 1px;
+            background: linear-gradient(180deg, rgba(218, 41, 28, 0.4), transparent 60%);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0.5;
+            transition: opacity 0.4s;
+        }
+
+        .player-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: rgba(218, 41, 28, 0.3);
+            box-shadow: 0 20px 40px rgba(218, 41, 28, 0.15);
+        }
+
+        .player-card-img {
+            height: 290px;
+            background: linear-gradient(180deg, #14141c 0%, #0c0c10 100%);
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Vector Art Layer */
+        .cyber-face-art {
+            width: 160px;
+            height: 220px;
+            position: relative;
+            margin-bottom: -10px;
+            transition: transform 0.4s;
+        }
+
+        .player-card:hover .cyber-face-art {
+            transform: scale(1.06) translateY(-5px);
+        }
+
+        .face-base {
+            width: 80px;
+            height: 105px;
+            border-radius: 40px 40px 50px 50px;
+            position: absolute;
+            top: 50px;
+            left: 40px;
+            z-index: 5;
+        }
+
+        .neck { width: 34px; height: 40px; position: absolute; top: 135px; left: 63px; z-index: 3; }
+        .jersey {
+            width: 140px;
+            height: 70px;
+            background: #da291c;
+            border-radius: 40px 40px 0 0;
+            position: absolute;
+            bottom: 0;
+            left: 10px;
+            z-index: 2;
+            border-top: 5px solid #fff;
+        }
+        .jersey-stripe { width: 14px; height: 100%; background: #fff; position: absolute; left: 63px; opacity: 0.15; }
+        .hair { position: absolute; z-index: 6; }
+        .eyes {
+            width: 44px; height: 6px; position: absolute; top: 90px; left: 58px; z-index: 7;
+            display: flex; justify-content: space-between;
+        }
+        .eyes::before, .eyes::after { content: ''; width: 10px; height: 6px; background: #222; border-radius: 50%; }
+
+        .bruno-skin { background: #edd3c4; }
+        .bruno-neck { background: #debfae; }
+        .bruno-hair { width: 84px; height: 45px; background: #2b1f1d; border-radius: 40px 40px 10px 10px; top: 42px; left: 38px; }
+        .bruno-beard { width: 82px; height: 45px; border: 6px solid #2b1f1d; border-top: none; bottom: 64px; left: 39px; position: absolute; z-index: 6;}
+
+        .rashford-skin { background: #825a43; }
+        .rashford-neck { background: #6e4934; }
+        .rashford-hair { width: 78px; height: 25px; background: #121212; border-radius: 20px 20px 0 0; top: 46px; left: 41px; }
+        .rashford-beard { width: 80px; height: 35px; border: 4px solid #1a1a1a; border-top: none; bottom: 64px; left: 40px; position: absolute; z-index: 6;}
+
+        .garnacho-skin { background: #f7e4da; }
+        .garnacho-neck { background: #e5cdbe; }
+        .garnacho-hair { width: 86px; height: 50px; background: #ded7b1; border-radius: 40px 40px 15px 15px; top: 38px; left: 37px; }
+
+        .mainoo-skin { background: #6b4632; }
+        .mainoo-neck { background: #543423; }
+        .mainoo-hair { width: 82px; height: 35px; background: #050505; border-radius: 45px 45px 5px 5px; top: 44px; left: 39px; }
+
+        /* General Info Elements */
+        .player-info { padding: 25px; background: #0a0a0d; }
+        .player-info h3 { font-size: 1.3rem; color: #fff; font-weight: 800; }
+        .player-info p { color: #da291c; font-weight: 700; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px; }
+        
+        .stats-action-btn {
+            width: 100%; background: transparent; color: #8e8e93; padding: 10px;
+            border: 1px solid rgba(255,255,255,0.08); border-radius: 6px;
+            font-weight: 700; font-size: 0.75rem; text-transform: uppercase; cursor: pointer; transition: all 0.3s;
+        }
+        .player-card:hover .stats-action-btn { background: #da291c; color: #fff; border-color: transparent; }
+
+        /* Vertical Rankings Terminal */
+        .legends-vertical-wrapper {
+            background: linear-gradient(180deg, #09090d 0%, #0e0e14 100%);
+            border: 1px solid rgba(218, 41, 28, 0.15);
+            border-radius: 16px; padding: 15px; max-width: 650px; margin: 0 auto;
+            display: flex; flex-direction: column; gap: 12px;
+        }
+
+        .legend-vertical-node {
+            display: flex; align-items: center; justify-content: space-between; background: rgba(255, 255, 255, 0.01);
+            padding: 16px 24px; border-radius: 10px; border: 1px solid rgba(255, 255, 255, 0.02); cursor: pointer; transition: all 0.3s;
+        }
+
+        .legend-vertical-node:hover {
+            background: rgba(218, 41, 28, 0.05); border-color: rgba(218, 41, 28, 0.3); transform: translateX(5px);
+        }
+
+        .legend-left-block { display: flex; align-items: center; gap: 15px; }
+        .legend-place-tag { color: #da291c; font-weight: 800; font-size: 0.8rem; min-width: 120px; }
+        .legend-name-tag { color: #fff; font-weight: 700; }
+        .legend-action-indicator { color: #444; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; }
+        .legend-vertical-node:hover .legend-action-indicator { color: #da291c; }
+
+        /* Glassmorphism Modals */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(3, 3, 5, 0.9);
+            backdrop-filter: blur(25px); display: flex; align-items: center; justify-content: center;
+            opacity: 0; pointer-events: none; transition: opacity 0.4s ease; z-index: 2000;
+        }
+        .modal-overlay.active { opacity: 1; pointer-events: auto; }
+        .modal-content {
+            background: linear-gradient(145deg, #0f0f14 0%, #070709 100%); width: 100%; max-width: 480px;
+            border-radius: 24px; padding: 40px; position: relative; transform: scale(0.9); transition: transform 0.4s ease;
+            border: 1px solid rgba(218, 41, 28, 0.4);
+        }
+        .modal-overlay.active .modal-content { transform: scale(1); }
+        .close-modal { position: absolute; top: 20px; right: 20px; font-size: 32px; color: #444; cursor: pointer; border: none; background: none; }
+        .close-modal:hover { color: #da291c; }
+        .modal-header h2 { font-size: 2rem; color: #fff; font-weight: 900; }
+        .modal-header p { color: #da291c; font-weight: 700; font-size: 0.8rem; margin-bottom: 25px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 10px; }
+        .stats-matrix { display: flex; flex-direction: column; gap: 10px; }
+        .matrix-row { display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.01); padding: 14px 18px; border-radius: 12px; }
+        .matrix-label { color: #aeaeae; }
+        .matrix-value { font-weight: 800; color: #fff; background: rgba(218, 41, 28, 0.15); padding: 4px 12px; border-radius: 8px; border: 1px solid rgba(218, 41, 28, 0.3); }
+
+        #history .card-wrapper { background: linear-gradient(180deg, #0e0e12 0%, #08080b 100%); border: 1px solid rgba(218, 41, 28, 0.1); border-radius: 12px; padding: 40px; }
+        #history p { color: #a1a1a6; font-size: 1.1rem; max-width: 750px; margin: 0 auto 40px auto; line-height: 1.8; text-align: center; }
+        .trophy-table { width: 100%; border-collapse: collapse; }
+        .trophy-table th { text-transform: uppercase; color: #666; font-size: 0.8rem; padding-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .trophy-table td { padding: 18px 10px; color: #fff; border-bottom: 1px solid rgba(255,255,255,0.03); }
+        .trophy-table td:last-child { font-weight: 800; text-align: right; color: #da291c; }
+
+        footer { background-color: #020203; color: #444; text-align: center; padding: 30px 20px; font-size: 0.75rem; font-weight: 700; border-top: 1px solid rgba(255,255,255,0.01); }
+        @keyframes neonPulse { 0% { filter: drop-shadow(0 0 10px rgba(218, 41, 28, 0.1)); } 100% { filter: drop-shadow(0 0 25px rgba(218, 41, 28, 0.4)); } }
+
+        /* ==========================================================================
+           DYNAMIC SUB-PAGE SUB-ENGINE
+           ========================================================================== */
+        #dashboard-subpage {
+            display: none;
+            min-height: 100vh;
+            padding: 120px 25px 60px 25px;
+            position: relative;
+            z-index: 10;
+        }
+        .subpage-container { max-width: 950px; margin: 0 auto; }
+        .subpage-header { border-bottom: 2px solid #da291c; padding-bottom: 20px; margin-bottom: 40px; }
+        .subpage-header h1 { font-size: 3.5rem; text-transform: uppercase; font-weight: 900; color: #fff; margin: 0; }
+        .subpage-header p { color: #da291c; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-top: 5px; }
+        
+        .subpage-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 40px; }
+        @media(max-width: 768px) { .subpage-grid { grid-template-columns: 1fr; } }
+        
+        .subpage-card { background: #0c0c10; border: 1px solid rgba(218,41,28,0.2); border-radius: 12px; padding: 30px; }
+        .subpage-card h2 { margin-top: 0; font-size: 1.4rem; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 10px; text-transform: uppercase; color: #da291c; }
+        
+        .subpage-row { display: flex; justify-content: space-between; padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.02); }
+        .subpage-row:last-child { border: none; }
+        .subpage-label { color: #8e8e93; }
+        .subpage-val { font-weight: 800; background: rgba(218,41,28,0.1); padding: 2px 12px; border-radius: 6px; border: 1px solid rgba(218,41,28,0.2); }
+        
+        /* High-Speed Sandboxed Video Pipeline Layout */
+        .video-box { 
+            position: relative; 
+            padding-bottom: 56.25%; 
+            height: 0; 
+            overflow: hidden; 
+            border-radius: 12px; 
+            border: 2px solid #da291c; 
+            background: #000;
+            box-shadow: 0 0 30px rgba(218, 41, 28, 0.2);
+        }
+        .video-box iframe { 
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            border: none;
+        }
+        
+        .back-hub-btn {
+            display: inline-block; background: transparent; color: #da291c; border: 1px solid #da291c;
+            padding: 14px 30px; text-transform: uppercase; font-weight: 700; border-radius: 4px; cursor: pointer; transition: all 0.3s;
+        }
+        .back-hub-btn:hover { background: #da291c; color: #fff; box-shadow: 0 0 20px rgba(218,41,28,0.4); }
+    </style>
+</head>
+<body>
+
+    <div id="main-hub-layer">
+        <nav>
+            <div class="nav-container">
+                <div class="logo">MANCHESTER <span>UNITED</span></div>
+                <ul class="nav-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#squad">Squad Leaders</a></li>
+                    <li><a href="#legends">All-Time Top 10</a></li>
+                    <li><a href="#history">Legacy</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <header id="home" class="hero">
+            <div class="hero-content">
+                <h1>THE RED DEVILS</h1>
+                <p>Theatre of Electric Dreams</p>
+                <a href="#squad" class="btn">Access Squad Core</a>
+            </div>
+        </header>
+
+        <section id="squad">
+            <h2 class="section-title">Club <span>Leaders</span></h2>
+            <div class="squad-grid">
+                
+                <div class="player-card" onclick="openLeaderDashboard('bruno')">
+                    <div class="player-card-img">
+                        <div class="cyber-face-art">
+                            <div class="hair bruno-hair"></div>
+                            <div class="face-base bruno-skin"></div><div class="eyes"></div>
+                            <div class="beard bruno-beard"></div><div class="neck bruno-neck"></div>
+                            <div class="jersey"><div class="jersey-stripe"></div></div>
+                        </div>
+                    </div>
+                    <div class="player-info"><h3>Bruno Fernandes</h3><p>Midfielder / Captain</p><button class="stats-action-btn">View Stats & Videos</button></div>
+                </div>
+
+                <div class="player-card" onclick="openLeaderDashboard('rashford')">
+                    <div class="player-card-img">
+                        <div class="cyber-face-art">
+                            <div class="hair rashford-hair"></div>
+                            <div class="face-base rashford-skin"></div><div class="eyes"></div>
+                            <div class="beard rashford-beard"></div><div class="neck rashford-neck"></div>
+                            <div class="jersey"><div class="jersey-stripe"></div></div>
+                        </div>
+                    </div>
+                    <div class="player-info"><h3>Marcus Rashford</h3><p>Forward</p><button class="stats-action-btn">View Stats & Videos</button></div>
+                </div>
+
+                <div class="player-card" onclick="openLeaderDashboard('garnacho')">
+                    <div class="player-card-img">
+                        <div class="cyber-face-art">
+                            <div class="hair garnacho-hair"></div>
+                            <div class="face-base garnacho-skin"></div><div class="eyes"></div>
+                            <div class="neck garnacho-neck"></div><div class="jersey"><div class="jersey-stripe"></div></div>
+                        </div>
+                    </div>
+                    <div class="player-info"><h3>Alejandro Garnacho</h3><p>Winger</p><button class="stats-action-btn">View Stats & Videos</button></div>
+                </div>
+
+                <div class="player-card" onclick="openLeaderDashboard('mainoo')">
+                    <div class="player-card-img">
+                        <div class="cyber-face-art">
+                            <div class="hair mainoo-hair"></div>
+                            <div class="face-base mainoo-skin"></div><div class="eyes"></div>
+                            <div class="neck mainoo-neck"></div><div class="jersey"><div class="jersey-stripe"></div></div>
+                        </div>
+                    </div>
+                    <div class="player-info"><h3>Kobbie Mainoo</h3><p>Midfielder</p><button class="stats-action-btn">View Stats & Videos</button></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="legends">
+            <h2 class="section-title">All-Time <span>Top 10 Rankings</span></h2>
+            <div class="legends-vertical-wrapper">
+                <div class="legend-vertical-node" onclick="launchMatrix('sirbobby')">
+                    <div class="legend-left-block"><span class="legend-place-tag">First Place:</span><span class="legend-name-tag">Sir Bobby Charlton</span></div>
+                    <span class="legend-action-indicator">View Data //</span>
+                </div>
+                <div class="legend-vertical-node" onclick="launchMatrix('best')">
+                    <div class="legend-left-block"><span class="legend-place-tag">Second Place:</span><span class="legend-name-tag">George Best</span></div>
+                    <span class="legend-action-indicator">View Data //</span>
+                </div>
+                <div class="legend-vertical-node" onclick="launchMatrix('giggs')">
+                    <div class="legend-left-block"><span class="legend-place-tag">Third Place:</span><span class="legend-name-tag">Ryan Giggs</span></div>
+                    <span class="legend-action-indicator">View Data //</span>
+                </div>
+                <div class="legend-vertical-node" onclick="launchMatrix('ronaldo')">
+                    <div class="legend-left-block"><span class="legend-place-tag">Fourth Place:</span><span class="legend-name-tag">Cristiano Ronaldo</span></div>
+                    <span class="legend-action-indicator">View Data //</span>
+                </div>
+                <div class="legend-vertical-node" onclick="launchMatrix('rooney')">
+                    <div class="legend-left-block"><span class="legend-place-tag">Fifth Place:</span><span class="legend-name-tag">Wayne Rooney</span></div>
+                    <span class="legend-action-indicator">View Data //</span>
+                </div>
+                <div class="legend-vertical-node" onclick="launchMatrix('cantona')">
+                    <div class="legend-left-block"><span class="legend-place-tag">Sixth Place:</span><span class="legend-name-tag">Eric Cantona</span></div>
+                    <span class="legend-action-indicator">View Data //</span>
+                </div>
+                <div class="legend-vertical-node" onclick="launchMatrix('scholes')">
+                    <div class="legend-left-block"><span class="legend-place-tag">Seventh Place:</span><span class="legend-name-tag">Paul Scholes</span></div>
+                    <span class="legend-action-indicator">View Data //</span>
+                </div>
+                <div class="legend-vertical-node" onclick="launchMatrix('keane')">
+                    <div class="legend-left-block"><span class="legend-place-tag">Eighth Place:</span><span class="legend-name-tag">Roy Keane</span></div>
+                    <span class="legend-action-indicator">View Data //</span>
+                </div>
+                <div class="legend-vertical-node" onclick="launchMatrix('beckham')">
+                    <div class="legend-left-block"><span class="legend-place-tag">Ninth Place:</span><span class="legend-name-tag">David Beckham</span></div>
+                    <span class="legend-action-indicator">View Data //</span>
+                </div>
+                <div class="legend-vertical-node" onclick="launchMatrix('law')">
+                    <div class="legend-left-block"><span class="legend-place-tag">Tenth Place:</span><span class="legend-name-tag">Denis Law</span></div>
+                    <span class="legend-action-indicator">View Data //</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="history">
+            <h2 class="section-title">Club <span>Legacy</span></h2>
+            <div class="card-wrapper">
+                <p>Forged in 1878, Manchester United stands as an untamed powerhouse of European football history.</p>
+                <table class="trophy-table">
+                    <thead><tr><th>Global Competition</th><th style="text-align: right;">Titles</th></tr></thead>
+                    <tbody>
+                        <tr><td>English Premier League Titles</td><td>20</td></tr>
+                        <tr><td>FA Cup Trophies</td><td>13</td></tr>
+                        <tr><td>UEFA Champions League</td><td>3</td></tr>
+                        <tr><td>FIFA Club World Cup</td><td>1</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        
+        <footer>
+            <p>// OPERATIONAL FAN PLATFORM RUNTIME © 2026. GLORY GLORY MANCHESTER UNITED.</p>
+        </footer>
+    </div>
+
+    <div id="dashboard-subpage">
+        <div class="subpage-container">
+            <div class="subpage-header">
+                <h1 id="db-name">Player Name</h1>
+                <p id="db-meta">Position // Squad Kit</p>
+            </div>
+            <div class="subpage-grid">
+                <div class="subpage-card">
+                    <h2>Performance Metrics</h2>
+                    <div class="subpage-row"><span class="subpage-label">Matches Tracked</span><span class="subpage-val" id="db-m">0</span></div>
+                    <div class="subpage-row"><span class="subpage-label">Goals Logged</span><span class="subpage-val" id="db-g">0</span></div>
+                    <div class="subpage-row"><span class="subpage-label">Assists Confirmed</span><span class="subpage-val" id="db-a">0</span></div>
+                    <div class="subpage-row"><span class="subpage-label">Passing Accuracy</span><span class="subpage-val" id="db-p">0%</span></div>
+                </div>
+                <div class="subpage-card">
+                    <h2>Biographical Profile</h2>
+                    <div class="subpage-row"><span class="subpage-label">Current Club</span><span class="subpage-val">Manchester United</span></div>
+                    <div class="subpage-row"><span class="subpage-label">Deployment Status</span><span class="subpage-val">Active First Squad</span></div>
+                    <div class="subpage-row"><span class="subpage-label">Telemetry Feed</span><span class="subpage-val" style="color: #34c759; border-color: #34c759;">Live Sync OK</span></div>
+                </div>
+            </div>
+            <div class="subpage-card" style="margin-bottom: 40px;">
+                <h2 id="db-video-title">Official Video Highlight Reel</h2>
+                <div class="video-box" id="db-video-frame">
+                    </div>
+            </div>
+            <button class="back-hub-btn" onclick="closeLeaderDashboard()">← Back To Command Hub</button>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="portalModal" onclick="shutdownPortal(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="close-modal" onclick="document.getElementById('portalModal').classList.remove('active')">&times;</button>
+            <div id="portalDisplay"></div>
+        </div>
+    </div>
+
+    <script>
+        const performanceMatrix = {
+            sirbobby: { name: "Sir Bobby Charlton", role: "All-Time Rank: #1", metrics: [{ key: "Total Appearances", val: "758" }, { key: "Goals Scored", val: "249" }, { key: "Ballon d'Or", val: "1" }, { key: "Era", val: "1956 - 1973" }] },
+            best: { name: "George Best", role: "All-Time Rank: #2", metrics: [{ key: "Total Appearances", val: "470" }, { key: "Goals Scored", val: "179" }, { key: "Ballon d'Or", val: "1" }, { key: "Era", val: "1963 - 1974" }] },
+            giggs: { name: "Ryan Giggs", role: "All-Time Rank: #3", metrics: [{ key: "Total Appearances", val: "963" }, { key: "Goals Scored", val: "168" }, { key: "Premier Leagues", val: "13" }, { key: "Era", val: "1990 - 2014" }] },
+            ronaldo: { name: "Cristiano Ronaldo", role: "All-Time Rank: #4", metrics: [{ key: "Total Appearances", val: "346" }, { key: "Goals Scored", val: "145" }, { key: "Ballon d'Or", val: "5" }, { key: "UCL Titles", val: "1" }] },
+            rooney: { name: "Wayne Rooney", role: "All-Time Rank: #5", metrics: [{ key: "Total Appearances", val: "559" }, { key: "Goals Scored", val: "253" }, { key: "Trophies Won", val: "16" }, { key: "Era", val: "2004 - 2017" }] },
+            cantona: { name: "Eric Cantona", role: "All-Time Rank: #6", metrics: [{ key: "Total Appearances", val: "185" }, { key: "Goals Scored", val: "82" }, { key: "Premier Leagues", val: "4" }, { key: "Era", val: "1992 - 1997" }] },
+            scholes: { name: "Paul Scholes", role: "All-Time Rank: #7", metrics: [{ key: "Total Appearances", val: "718" }, { key: "Goals Scored", val: "155" }, { key: "Passing Accuracy", val: "92.4%" }, { key: "Era", val: "1993 - 2013" }] },
+            keane: { name: "Roy Keane", role: "All-Time Rank: #8", metrics: [{ key: "Total Appearances", val: "480" }, { key: "Goals Scored", val: "51" }, { key: "Premier Leagues", val: "7" }, { key: "Era", val: "1993 - 2005" }] },
+            beckham: { name: "David Beckham", role: "All-Time Rank: #9", metrics: [{ key: "Total Appearances", val: "394" }, { key: "Goals Scored", val: "85" }, { key: "Assists Recorded", val: "120" }, { key: "Era", val: "1992 - 2003" }] },
+            law: { name: "Denis Law", role: "All-Time Rank: #10", metrics: [{ key: "Total Appearances", val: "404" }, { key: "Goals Scored", val: "237" }, { key: "Ballon d'Or", val: "1" }, { key: "Era", val: "1962 - 1973" }] }
+        };
+
+        // Linked directly to real targeted YouTube goal media elements
+        const dashboardDatabase = {
+            bruno: {
+                name: "Bruno Fernandes", pos: "Midfielder / Captain", num: "8", m: "35", g: "9", a: "21", p: "82.4%",
+                vTitle: "Bruno Fernandes // Top 20 Elite Goals Showreel",
+                vId: "W5oMb2l-PZI"
+            },
+            rashford: {
+                name: "Marcus Rashford", pos: "Forward", num: "10", m: "31", g: "8", a: "5", p: "79.1%",
+                vTitle: "Marcus Rashford // Legendary 35-Yard Knuckleball Free-Kick vs Chelsea",
+                vId: "lzOuZe2YW1o"
+            },
+            garnacho: {
+                name: "Alejandro Garnacho", pos: "Winger", num: "17", m: "33", g: "12", a: "6", p: "81.0%",
+                vTitle: "Alejandro Garnacho // Puskás Award-Winning Bicycle Kick Matrix vs Everton",
+                vId: "Nb44JwBJxBk"
+            },
+            mainoo: {
+                name: "Kobbie Mainoo", pos: "Midfielder", num: "37", m: "29", g: "4", a: "3", p: "88.7%",
+                vTitle: "Kobbie Mainoo // Clutched 97th-Minute Solo Match Winner vs Wolves",
+                vId: "A6wz7a9QXrA"
+            }
+        };
+
+        function openLeaderDashboard(id) {
+            const data = dashboardDatabase[id];
+            if (!data) return;
+
+            document.getElementById('db-name').innerText = data.name;
+            document.getElementById('db-meta').innerText = `${data.pos} // Squad Kit #${data.num}`;
+            document.getElementById('db-m').innerText = data.m;
+            document.getElementById('db-g').innerText = data.g;
+            document.getElementById('db-a').innerText = data.a;
+            document.getElementById('db-p').innerText = data.p;
+            document.getElementById('db-video-title').innerText = data.vTitle;
+            
+            // Native YouTube sandboxed player embed
+            document.getElementById('db-video-frame').innerHTML = `
+                <iframe src="https://www.youtube.com/embed/${data.vId}?autoplay=1&mute=1&rel=0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                </iframe>`;
+
+            document.getElementById('main-hub-layer').style.display = 'none';
+            document.getElementById('dashboard-subpage').style.display = 'block';
+            window.scrollTo(0, 0);
+        }
+
+        function closeLeaderDashboard() {
+            document.getElementById('db-video-frame').innerHTML = '';
+            document.getElementById('dashboard-subpage').style.display = 'none';
+            document.getElementById('main-hub-layer').style.display = 'block';
+        }
+
+        function launchMatrix(id) {
+            const player = performanceMatrix[id];
+            if (!player) return;
+
+            let matrixHTML = `<div class="modal-header"><h2>${player.name}</h2><p>${player.role}</p></div><div class="stats-matrix">`;
+            player.metrics.forEach(metric => {
+                matrixHTML += `<div class="matrix-row"><span class="matrix-label">${metric.key}</span><span class="matrix-value">${metric.val}</span></div>`;
+            });
+            matrixHTML += `</div>`;
+
+            document.getElementById('portalDisplay').innerHTML = matrixHTML;
+            document.getElementById('portalModal').classList.add('active');
+        }
+
+        function shutdownPortal(event) {
+            if (event.target.id === 'portalModal') {
+                document.getElementById('portalModal').classList.remove('active');
+            }
+        }
+    </script>
+</body>
+</html>

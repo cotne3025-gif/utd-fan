@@ -1,0 +1,514 @@
+/* ==========================================================================
+   ADVANCED CYBERPUNK "RED DEVILS" ENGINE (UPGRADED CSS ONLY)
+   ========================================================================== */
+
+/* Base Reset & Cyber Grid Background */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: #050508;
+    color: #f5f5f7;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* Moving Cyber Matrix Grid overlay across the body */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background-image: 
+        linear-gradient(rgba(218, 41, 28, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(218, 41, 28, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    background-position: center;
+    z-index: -1;
+    pointer-events: none;
+    animation: gridScroll 20s linear infinite;
+}
+
+@keyframes gridScroll {
+    0% { background-position: 0 0; }
+    100% { background-position: 0 40px; }
+}
+
+/* Modern Webkit Scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+}
+::-webkit-scrollbar-track {
+    background: #050508;
+}
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #da291c, #4a0000);
+    border-radius: 10px;
+}
+
+/* Navigation - Floating Glass Capsule */
+nav {
+    background: rgba(8, 8, 12, 0.7);
+    backdrop-filter: blur(20px) saturate(160%);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    border-bottom: 1px solid rgba(218, 41, 28, 0.15);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+.nav-container {
+    max-width: 1300px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 25px;
+}
+
+.logo {
+    color: #fff;
+    font-weight: 900;
+    font-size: 20px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+}
+
+.logo span {
+    color: #da291c;
+    text-shadow: 0 0 15px rgba(218, 41, 28, 0.8);
+}
+
+/* HIGHLY UPGRADED BUTTON CONTAINER */
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 15px; /* Tighter grouping for distinct capsule buttons */
+}
+
+/* Dynamic Capsule Button Transformation */
+.nav-links a {
+    color: #f5f5f7;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    position: relative;
+    padding: 10px 24px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(218, 41, 28, 0.25);
+    border-radius: 30px;
+    overflow: hidden;
+    z-index: 1;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+/* Cyber energy slide-fill effect on hover */
+.nav-links a::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%; width: 100%; height: 100%;
+    background: linear-gradient(90deg, #7a0000 0%, #da291c 100%);
+    z-index: -1;
+    transition: left 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.nav-links a:hover {
+    color: #fff;
+    border-color: #ff3b30;
+    transform: translateY(-2px);
+    box-shadow: 0 0 20px rgba(218, 41, 28, 0.6);
+}
+
+.nav-links a:hover::before {
+    left: 0;
+}
+
+/* Active navigation link accent glow */
+.nav-links a:active {
+    transform: scale(0.95);
+}
+
+/* Hero Section with Parallax Vignette */
+.hero {
+    background: radial-gradient(circle at center, rgba(10, 10, 12, 0.1) 0%, #050508 90%), 
+                url('https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=1500&q=80') no-repeat center center/cover;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.hero-content h1 {
+    font-size: 5.5rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -2px;
+    background: linear-gradient(180deg, #ffffff 30%, #da291c 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: neonPulse 4s infinite alternate ease-in-out;
+}
+
+.hero-content p {
+    font-size: 1.2rem;
+    color: #8e8e93;
+    margin-bottom: 40px;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    font-weight: 500;
+}
+
+.btn {
+    background: linear-gradient(135deg, #da291c 0%, #7a0000 100%);
+    color: #fff;
+    padding: 16px 40px;
+    text-decoration: none;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.85rem;
+    border-radius: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 25px rgba(218, 41, 28, 0.3);
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.btn:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 15px 35px rgba(218, 41, 28, 0.6);
+    border-color: rgba(255, 255, 255, 0.3);
+    background: linear-gradient(135deg, #ff3b30 0%, #da291c 100%);
+}
+
+/* Section Controls */
+section {
+    padding: 120px 25px;
+    max-width: 1300px;
+    margin: 0 auto;
+}
+
+.section-title {
+    font-size: 3rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+    margin-bottom: 60px;
+    text-align: center;
+}
+
+.section-title span {
+    color: #da291c;
+    position: relative;
+    text-shadow: 0 0 20px rgba(218, 41, 28, 0.3);
+}
+
+/* History Grid Upgrade */
+#history .card-wrapper {
+    background: linear-gradient(180deg, #0e0e12 0%, #08080b 100%);
+    border: 1px solid rgba(218, 41, 28, 0.1);
+    border-radius: 12px;
+    padding: 50px;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+}
+
+#history p {
+    color: #a1a1a6;
+    font-size: 1.2rem;
+    max-width: 750px;
+    margin: 0 auto 50px auto;
+    line-height: 1.8;
+    text-align: center;
+}
+
+.trophy-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.trophy-table th {
+    text-transform: uppercase;
+    color: #666;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.trophy-table td {
+    padding: 22px 10px;
+    font-size: 1.15rem;
+    color: #fff;
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+}
+
+.trophy-table tr:hover td {
+    color: #da291c;
+    background: rgba(255,255,255,0.01);
+}
+
+.trophy-table td:last-child {
+    color: #fff;
+    font-weight: 800;
+    text-align: right;
+    font-size: 1.3rem;
+}
+
+/* Squad Grid - Kinetic Cards */
+.squad-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+    gap: 35px;
+}
+
+.player-card {
+    background: #0c0c10;
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* Animated Border-Glow Effect via linear gradient and pseudo elements */
+.player-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    padding: 1px;
+    background: linear-gradient(180deg, rgba(218, 41, 28, 0.4), transparent 60%);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0.5;
+    transition: opacity 0.4s;
+}
+
+.player-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    border-color: rgba(218, 41, 28, 0.3);
+    box-shadow: 0 20px 40px rgba(218, 41, 28, 0.15);
+}
+
+.player-card:hover::after {
+    opacity: 1;
+    background: linear-gradient(180deg, #da291c, #ff3b30);
+}
+
+.player-img-frame {
+    height: 260px;
+    background: linear-gradient(180deg, #13131a 0%, #0c0c10 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 5.5rem;
+    transition: background 0.4s;
+}
+
+.player-card:hover .player-img-frame {
+    background: linear-gradient(180deg, #240a08 0%, #0c0c10 100%);
+}
+
+.player-info {
+    padding: 30px;
+    background: #0a0a0d;
+}
+
+.player-info h3 {
+    font-size: 1.4rem;
+    color: #fff;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+}
+
+.player-info p {
+    color: #da291c;
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 20px;
+}
+
+.stats-action-btn {
+    width: 100%;
+    background: transparent;
+    color: #8e8e93;
+    padding: 12px;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+}
+
+.player-card:hover .stats-action-btn {
+    background: #da291c;
+    color: #fff;
+    border-color: transparent;
+    box-shadow: 0 0 15px rgba(218, 41, 28, 0.5);
+}
+
+/* Glassmorphism Matrix Portal Modal */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(3, 3, 5, 0.85);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 2000;
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modal-content {
+    background: linear-gradient(145deg, #0f0f14 0%, #070709 100%);
+    width: 100%;
+    max-width: 480px;
+    border-radius: 24px;
+    padding: 45px;
+    position: relative;
+    transform: scale(0.85);
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    border: 1px solid rgba(218, 41, 28, 0.4);
+    box-shadow: 0 0 60px rgba(218, 41, 28, 0.3);
+}
+
+.modal-overlay.active .modal-content {
+    transform: scale(1);
+}
+
+.close-modal {
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    font-size: 36px;
+    color: #444;
+    cursor: pointer;
+    border: none;
+    background: none;
+    transition: color 0.3s;
+}
+
+.close-modal:hover {
+    color: #da291c;
+}
+
+.modal-header h2 {
+    font-size: 2.2rem;
+    color: #fff;
+    font-weight: 900;
+}
+
+.modal-header p {
+    color: #da291c;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    margin-bottom: 30px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    padding-bottom: 15px;
+}
+
+.stats-matrix {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.matrix-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255,255,255,0.01);
+    padding: 16px 20px;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.02);
+    transition: all 0.3s;
+}
+
+.matrix-row:hover {
+    background: rgba(218, 41, 28, 0.05);
+    border-color: rgba(218, 41, 28, 0.2);
+    transform: translateX(4px);
+}
+
+.matrix-label {
+    color: #aeaeae;
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.matrix-value {
+    font-weight: 800;
+    color: #fff;
+    font-size: 1.1rem;
+    background: rgba(218, 41, 28, 0.15);
+    padding: 4px 14px;
+    border-radius: 8px;
+    border: 1px solid rgba(218, 41, 28, 0.3);
+    text-shadow: 0 0 10px rgba(218, 41, 28, 0.4);
+}
+
+/* Tech Footer Control */
+footer {
+    background-color: #020203;
+    color: #444;
+    text-align: center;
+    padding: 40px 20px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    border-top: 1px solid rgba(255,255,255,0.01);
+}
+
+/* Animations Hub */
+@keyframes neonPulse {
+    0% { filter: drop-shadow(0 0 10px rgba(218, 41, 28, 0.1)); }
+    100% { filter: drop-shadow(0 0 25px rgba(218, 41, 28, 0.4)); }
+}
+
+/* Responsiveness adjustments */
+@media (max-width: 768px) {
+    .hero-content h1 { font-size: 3.5rem; }
+    .nav-links { display: none; }
+    #history .card-wrapper { padding: 30px; }
+    .section-title { font-size: 2.3rem; }
+}
+.video-box { 
+            position: relative; 
+            min-height: 150px; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px; 
+            border: 2px solid #da291c; 
+            background: #0a0a0d;
+            box-shadow: 0 0 30px rgba(218, 41, 28, 0.2);
+            margin-top: 20px;
+        }
